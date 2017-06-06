@@ -25,4 +25,4 @@ Get to help screen with
 To get events for the pixel associated with product set 123
 
     bundle exec ruby investigate.rb --product_set 123 > data.dat
-    gnuplot histogram.gpi
+    gnuplot -e "filename='data.dat'" histogram.gpi > data.svg
