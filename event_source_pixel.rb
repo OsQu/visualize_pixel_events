@@ -9,11 +9,19 @@ class EventSourcePixel
         fields: "id,name,source_type"
       )
 
-      if external_event_sources.length > 1
-        puts "Warning: Found more than one event source, picking first. TODO: Implement selector here"
-      end
+      event_source =
+        if external_event_sources.length > 1
+          STDERR.puts "Multiple event sources found, enter index: "
+          external_event_sources.each_with_index do |source, index|
+            STDERR.puts "[#{index}] #{source.inspect}"
+          end
+          i = gets.to_i
+          external_event_sources[i]
+        else
+          external_event_sources[0]
+        end
 
-      new(api, external_event_sources[0]["id"])
+      new(api, event_source["id"])
     end
 
     def find_by_product_set_id(api, product_set_id)
